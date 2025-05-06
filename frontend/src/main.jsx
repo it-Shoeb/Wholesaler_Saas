@@ -10,6 +10,9 @@ import ProductUpdate from "./pages/product/ProductUpdate.jsx";
 import ProductGet from "./pages/product/ProductGet.jsx";
 import ProductAGet from "./pages/product/ProductAGet.jsx";
 import ProductDelete from "./pages/product/ProductDelete.jsx";
+import AddInventory from "./pages/inventory/AddInventory.jsx";
+import InventoryItems from "./pages/inventory/InventoryItems.jsx";
+import InventoryUpdate from "./pages/inventory/InventoryUpdate.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +38,19 @@ const router = createBrowserRouter([
       {
         path: "/product/delete",
         element: <ProductDelete heading={"ProductDelete"}></ProductDelete>,
+      },
+      {
+        path: "/inventory/create",
+        element: <AddInventory heading={"Add Item"}></AddInventory>,
+      },
+      {
+        path: "/inventory/items",
+        element: <InventoryItems heading={"Inventory Item"}></InventoryItems>,
+      },
+      {
+        path: "/inventory/update/:id",
+        element: <InventoryUpdate heading={"Update Inventory Item"}></InventoryUpdate>
+        
       },
     ],
   },

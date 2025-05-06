@@ -62,12 +62,18 @@ export default function ProductGet() {
             <div className="table-action-bar flex justify-between items-center mt-2 px-4">
               <div className="search w-1/3">
                 <input
-                  type="search"
+                  list="products"
+                  type="text"
                   placeholder="Search..."
                   name=""
                   id=""
                   className="border px-3 py-1 rounded-full w-full outline-none"
                 />
+                <datalist id="products">
+                  {Response.map((res) => (
+                    <option value={res.title} />
+                  ))}
+                </datalist>
               </div>
               <div className="pagination flex items-center gap-6 ">
                 <div className="export px-3 py-1 bg-green-100 rounded-md">

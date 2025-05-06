@@ -1,3 +1,4 @@
+// add units while creating product (pack, sheet, piece)
 import React, { useState } from "react";
 import axios from "axios";
 import api from "../../services/api.js";
@@ -93,6 +94,33 @@ export default function ProductCreate({ heading }) {
                 onChange={(e) => {
                   handleFormData(e);
                 }}
+              />
+            </label>
+
+            {/* <div className="sm:w-1/2 p-2 w-full">
+              <label htmlFor="" className="">
+                Unit
+              </label>
+              <select
+                name=""
+                id=""
+                className="rounded-md px-2 py-2 outline focus:bg-green-100 w-full mt-2"
+              >
+                <option value="pack">pack</option>
+                <option value="sheet">sheet</option>
+                <option value="piece">piece</option>
+              </select>
+            </div> */}
+
+            <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
+              Item Code
+              <input
+                type="text"
+                name="itemCode"
+                id=""
+                placeholder="Item code"
+                className="px-2 py-2 mt-2 rounded-sm border-0 outline w-full focus:bg-green-100"
+                maxLength={4}
               />
             </label>
 

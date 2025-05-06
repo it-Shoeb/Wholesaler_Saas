@@ -5,25 +5,24 @@ const inventorySchema = mongoose.Schema([
     itemCode: {
       type: String,
     },
-  },
-  {
     itemName: {
       type: String,
     },
-  },
-  {
-    itemImage: {
-      type: String,
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
     },
-  },
-  {
     itemPrice: {
       type: Number,
     },
-  },
-  {
-    category: {
+    itemImage: {
       type: String,
+    },
+    currentStock: {
+      type: Number,
+    },
+    minimumStock: {
+      type: Number,
     },
   },
 ]);

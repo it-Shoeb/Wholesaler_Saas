@@ -26,9 +26,9 @@ import checkRole from "./middleware/checkRole.js";
 app.use("/authentication", authenticationRoute);
 app.use("/product", /*authentication,*/ productRoute);
 app.use("/order", orderRoute);
-app.use("/inventory", authentication, inventoryRoute);
-app.use("/invoice", authentication, invoiceRoute);
-app.use("/report", authentication, reportRoute);
+app.use("/inventory", /*authentication*/ inventoryRoute);
+app.use("/invoice", /*authentication*/ invoiceRoute);
+app.use("/report", /*authentication*/ reportRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

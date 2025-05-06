@@ -2,7 +2,15 @@ import inventoryModel from "../models/inventoryModel.js";
 
 export const createInventoryItem = async (req, res) => {
   try {
-    const { itemCode, itemName, itemImage, itemPrice } = req.body;
+    const {
+      itemCode,
+      itemName,
+      createdBy,
+      itemPrice,
+      itemImage,
+      currentStock,
+      minimumStock,
+    } = req.body;
 
     const inventoryItemExist = await inventoryModel.findOne({
       itemCode,
@@ -18,8 +26,11 @@ export const createInventoryItem = async (req, res) => {
     const createInventoryItem = await inventoryModel.create({
       itemCode,
       itemName,
-      itemImage,
+      createdBy,
       itemPrice,
+      itemImage,
+      currentStock,
+      minimumStock,
     });
 
     if (!createInventoryItem) {
@@ -112,7 +123,15 @@ export const getInventoryItem = async (req, res) => {
 export const updateInventoryItem = async (req, res) => {
   try {
     const _id = req.params.id;
-    const { itemCode, itemName, itemImage, itemPrice } = req.body;
+    const {
+      itemCode,
+      itemName,
+      itemImage,
+      itemPrice,
+      currentStock,
+      minimumStock,
+    } = req.body;
+
     const inventoryItemExist = await inventoryModel.findOne({ _id });
     if (!inventoryItemExist) {
       return res
@@ -122,7 +141,7 @@ export const updateInventoryItem = async (req, res) => {
 
     const updateInventoryItem = await inventoryModel.findByIdAndUpdate(
       { _id },
-      { itemCode, itemName, itemImage, itemPrice },
+      { itemCode, itemName, itemImage, itemPrice, currentStock, minimumStock },
       { new: true }
     );
 
