@@ -13,29 +13,29 @@ import { body, validationResult } from "express-validator";
 
 router.post(
   "/",
-  body("customerName").notEmpty().withMessage("customerName required").trim(),
-  body("customerEmail")
-    .notEmpty()
-    .withMessage("customerEmail required")
-    .isEmail()
-    .withMessage("invalid email")
-    .trim(),
-  body("whatsappnumber")
-    .isMobilePhone()
-    .withMessage("ismobilenumber")
-    .notEmpty()
-    .withMessage("whatsappnumber required")
-    .matches(/[0-9]/)
-    .withMessage("must be number")
-    .isLength({ min: 10, max: 15 })
-    .withMessage("whatsapp number must 10 to 15 numbers only"),
-  body("specialCard").optional().trim(),
-  body("card").isArray({ min: 1 }).withMessage("at least one card required"),
-  body("card.*.cardName").notEmpty().withMessage("cardname required"),
-  body("card.*.quantity")
-    .notEmpty()
-    .isInt({ min: 1 })
-    .withMessage("invalid quantity"),
+  // body("customerName").notEmpty().withMessage("customerName required").trim(),
+  // body("customerEmail")
+  //   .notEmpty()
+  //   .withMessage("customerEmail required")
+  //   .isEmail()
+  //   .withMessage("invalid email")
+  //   .trim()
+  // // body("whatsappnumber")
+  // //   .isMobilePhone()
+  // //   .withMessage("ismobilenumber")
+  // //   .notEmpty()
+  // //   .withMessage("whatsappnumber required")
+  //   .matches(/[0-9]/)
+  //   .withMessage("must be number")
+  //   .isLength({ min: 10, max: 15 })
+  //   .withMessage("whatsapp number must 10 to 15 numbers only"),
+  // body("specialCard").optional().trim(),
+  // body("card").isArray({ min: 1 }).withMessage("at least one card required"),
+  // body("card.*.cardName").notEmpty().withMessage("cardname required"),
+  // body("card.*.quantity")
+  //   .notEmpty()
+  //   .isInt({ min: 1 })
+  //   .withMessage("invalid quantity"),
   (req, res, next) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {

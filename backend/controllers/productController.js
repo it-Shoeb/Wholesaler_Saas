@@ -4,7 +4,6 @@ import userModel from "../models/userModel.js";
 export const postProduct = async (req, res) => {
   try {
     const {
-      user_id,
       title,
       description,
       size,
@@ -16,9 +15,9 @@ export const postProduct = async (req, res) => {
       video_demo_url,
     } = req.body;
 
-    if (process.env.NODE_ENV === "development") {
-      console.log("Request body:", req.body);
-    }
+    // console.log(req.user);
+    console.log(req.body);
+    // console.log(req.file);
 
     const productExist = await productModel.findOne({ title });
 
@@ -29,7 +28,7 @@ export const postProduct = async (req, res) => {
     }
 
     const addItem = await productModel.create({
-      user_id,
+      user_id: req.user._id,
       title,
       description,
       size,
@@ -37,12 +36,13 @@ export const postProduct = async (req, res) => {
       price,
       available_stock,
       status,
-      images,
+      images: req.file,
+      // images: `uploads/products/${req.file.filename}`,
       video_demo_url,
     });
 
     const updateUser = await userModel.findOneAndUpdate(
-      { _id: user_id },
+      { _id: req.user._id },
       { $push: { products_ids: addItem._id } },
       { new: true }
     );
@@ -140,10 +140,11 @@ export const updateAProduct = async (req, res) => {
         price,
         available_stock,
         status,
-        images,
+        images: req.file,
+        // images: `uploads/products/${req.file.filename}`,
         video_demo_url,
-      },
-      { new: true }
+      }
+      // { new: true }
     );
 
     res.status(200).json({

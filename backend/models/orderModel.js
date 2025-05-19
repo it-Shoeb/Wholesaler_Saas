@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema({
   customerEmail: {
     type: String,
   },
-  whatsappnumber: {
+  customerNumber: {
     type: String,
   },
   card: [
@@ -24,8 +24,11 @@ const orderSchema = new mongoose.Schema({
       color: {
         type: String,
       },
-      designImage: {
+      cardImage: {
         type: String,
+      },
+      price: {
+        type: Number,
       },
     },
   ],
@@ -47,6 +50,12 @@ const orderSchema = new mongoose.Schema({
   },
   totalAmount: { type: Number },
   advanceAmount: { type: Number },
+  customer_id: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "customer",
+    },
+  ],
 });
 
 export default mongoose.model("order", orderSchema);

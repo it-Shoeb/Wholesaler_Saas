@@ -9,21 +9,20 @@ export default function ProductCreate({ heading }) {
   const navigate = useNavigate();
 
   const [Product, setProduct] = useState({
-    user_id: "",
     title: "",
     description: "",
     status: false,
     size: "",
     category: "",
-    price: Number,
-    available_stock: Number,
+    price: "",
+    available_stock: "",
     images: "",
     video_demo_url: "",
   });
 
   const handleForm = (e) => {
     e.preventDefault();
-    addProduct();
+    addProduct(e);
   };
 
   const handleFormData = (e) => {
@@ -42,9 +41,16 @@ export default function ProductCreate({ heading }) {
     setProduct((prev) => ({ ...prev, [name]: newValue }));
   };
 
-  const addProduct = async () => {
+  const addProduct = async (e) => {
+    const formData = new FormData();
+
+    for (const key in Product) {
+      formData.append(key, Product[key]);
+      console.log(key, Product[key]);
+    }
+
     try {
-      const response = await api.post("/product", Product);
+      const response = await api.post("/product", formData);
       toast.success(response.data.message);
       navigate("/product/get");
     } catch (error) {
@@ -54,37 +60,22 @@ export default function ProductCreate({ heading }) {
 
   return (
     <>
+      {console.log(Product)}
       <div className="wrapper bg-green-50 border-amber-300 h-[calc(100vh-90px)] px-8 py-2">
         <div className="inner-wrapper h-full overflow-y-scroll">
           <h1 className="text-4xl font-bold my-4">{heading}</h1>
           <form
-            action=""
+            action="/product"
             method="post"
+            enctype="multipart/form-data"
             className="flex flex-wrap"
             onSubmit={(e) => {
               handleForm(e);
             }}
           >
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
-              user_id:
-              <input
-                autoFocus
-                type="text"
-                name="user_id"
-                id=""
-                placeholder="user_id"
-                className="px-2 py-2 mt-2 rounded-sm border-0 outline w-full focus:bg-green-100"
-                value={Product.user_id}
-                onChange={(e) => {
-                  handleFormData(e);
-                }}
-              />
-            </label>
-
-            <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               title:
               <input
-                autoFocus
                 type="text"
                 name="title"
                 id=""
@@ -127,7 +118,6 @@ export default function ProductCreate({ heading }) {
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               description:
               <input
-                autoFocus
                 type="text"
                 name="description"
                 id=""
@@ -143,7 +133,6 @@ export default function ProductCreate({ heading }) {
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               size:
               <input
-                autoFocus
                 type="text"
                 name="size"
                 id=""
@@ -159,7 +148,6 @@ export default function ProductCreate({ heading }) {
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               category:
               <input
-                autoFocus
                 type="text"
                 name="category"
                 id=""
@@ -175,7 +163,6 @@ export default function ProductCreate({ heading }) {
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               price:
               <input
-                autoFocus
                 type="number"
                 name="price"
                 id=""
@@ -191,7 +178,6 @@ export default function ProductCreate({ heading }) {
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               available_stock:
               <input
-                autoFocus
                 type="number"
                 name="available_stock"
                 id=""
@@ -210,7 +196,6 @@ export default function ProductCreate({ heading }) {
             >
               status:
               <input
-                autoFocus
                 type="checkbox"
                 name="status"
                 id=""
@@ -226,12 +211,10 @@ export default function ProductCreate({ heading }) {
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               images:
               <input
-                autoFocus
                 type="file"
                 name="images"
-                accept="image/*,video/*"
+                // accept="image/*,video/*"
                 id=""
-                placeholder="images"
                 className="px-2 py-2 mt-2 rounded-sm border-0 outline w-full focus:bg-green-100"
                 onChange={(e) => {
                   handleFormData(e);
@@ -242,12 +225,10 @@ export default function ProductCreate({ heading }) {
             <label htmlFor="" className="block sm:w-1/2 p-2 w-full">
               video_demo_url:
               <input
-                autoFocus
                 accept="image/*,video/*"
                 type="file"
                 name="video_demo_url"
                 id=""
-                placeholder="video_demo_url"
                 className="px-2 py-2 mt-2 rounded-sm border-0 outline w-full focus:bg-green-100"
                 onChange={(e) => {
                   handleFormData(e);
@@ -265,7 +246,6 @@ export default function ProductCreate({ heading }) {
               </Link>
 
               <input
-                autoFocus
                 type="submit"
                 value="Add Product"
                 className="p-2 bg-green-300 hover:bg-green-400 rounded-md mt-4"

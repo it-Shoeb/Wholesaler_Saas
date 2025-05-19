@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { Link, useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import api from "../../services/api";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -11,11 +10,11 @@ export default function ProductUpdate({ heading }) {
   const navigate = useNavigate();
 
   const [Product, setProduct] = useState({
-    available_stock: Number,
+    available_stock: "",
     category: "",
     description: "",
     images: "",
-    price: Number,
+    price: "",
     size: "",
     status: false,
     updatedAt: "",
@@ -25,7 +24,7 @@ export default function ProductUpdate({ heading }) {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/product/${id}`).then((res) => {
+    api.get(`/product/${id}`).then((res) => {
       const {
         available_stock,
         category,
@@ -36,7 +35,7 @@ export default function ProductUpdate({ heading }) {
         status,
         updatedAt,
         title,
-        user_id,
+        images,
       } = res.data.data;
 
       setProduct({
@@ -49,7 +48,7 @@ export default function ProductUpdate({ heading }) {
         status,
         updatedAt,
         title,
-        user_id,
+        images,
       });
     });
   }, [id]);
@@ -79,12 +78,16 @@ export default function ProductUpdate({ heading }) {
   };
 
   const updateProduct = async () => {
-    console.log({ ...Product });
-    try {
-      const response = await api.put(`/product/${id}`, {
-        ...Product,
-      });
+    console.log(Product);
+    const formData = new FormData();
 
+    for (const key in Product) {
+      formData.append(key, Product[key]);
+      console.log(key, Product[key]);
+    }
+
+    try {
+      const response = await api.put(`/product/${id}`, formData);
       toast.success(response.data.message);
       navigate("/product/get");
     } catch (error) {
@@ -95,20 +98,43 @@ export default function ProductUpdate({ heading }) {
   return (
     <>
       <div className="wrapper bg-green-50 border-amber-300 h-[calc(100vh-90px)] px-8 py-2">
-        <div className="inner-wrapper h-full overflow-y-scroll">
+        <div className="inner-wrapper h-full overflow-auto">
           <h1 className="text-4xl font-bold my-4">{heading}</h1>
+
           <form
-            action=""
-            method="post"
+            action="/product"
+            method="put"
+            enctype="multipart/form-data"
             className="flex flex-wrap"
             onSubmit={(e) => {
               handleForm(e);
             }}
           >
-            <label htmlFor="user_id" className="block sm:w-1/2 p-2 w-full">
+            <div className="w-full flex items-center justify-center relative">
+              <div className="image-container rounded-full my-2 w-1/2 sm:w-1/3 md:w-1/8 aspect-square overflow-hidden flex items-center justify-center relative shadow">
+              {/* <div className="w-1/2 md:w-1/6 flex flex-col items-center justify-center"> */}
+                <img
+                  src={`http://localhost:3000/uploads/products/${Product?.images[0]?.filename}`}
+                  alt=""
+                  className="rounded-2xl w-full object-cover"
+                />
+
+                <input
+                  type="file"
+                  name="images"
+                  id="images"
+                  className="rounded-md cursor-pointer w-full absolute border h-full opacity-0" 
+                  onChange={(e) => {
+                    handleFormData(e);
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* <label htmlFor="user_id" className="block sm:w-1/2 p-2 w-full">
               user_id:
               <input
-                type="text"
+                type="text" 
                 name="user_id"
                 id=""
                 placeholder="user_id"
@@ -118,7 +144,7 @@ export default function ProductUpdate({ heading }) {
                   handleFormData(e);
                 }}
               />
-            </label>
+            </label> */}
 
             <label htmlFor="title" className="block sm:w-1/2 p-2 w-full">
               title<span className="text-red-500">*</span>:
@@ -231,7 +257,7 @@ export default function ProductUpdate({ heading }) {
               />
             </label>
 
-            <label htmlFor="images" className="block sm:w-1/2 p-2 w-full">
+            {/* <label htmlFor="images" className="block sm:w-1/2 p-2 w-full">
               images:
               <input
                 type="file"
@@ -244,7 +270,7 @@ export default function ProductUpdate({ heading }) {
                   handleFormData(e);
                 }}
               />
-            </label>
+            </label> */}
 
             <label
               htmlFor="video_demo_url"

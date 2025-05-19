@@ -5,22 +5,26 @@ const authentication = (req, res, next) => {
     const reqToken = req.cookies.token;
 
     if (!reqToken && req.headers.authorization?.startsWith("Bearer")) {
-      token = req.headers.authorization.split(` `)[1];
-      console.log(req.headers);
+      reqToken = req.headers.authorization.split(` `)[1];
+      // console.log("req header: ", req.headers);
     }
 
+    // console.error(req.cookies.token);
+
     if (!reqToken) {
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
-        message: "Unauthorized: not token provided or Expired Token",
+        message: "Unauthorized: not token provided or Expired Token ",
       });
     }
 
     const decoded = jwt.verify(reqToken, process.env.JWT_SECRET);
     req.user = decoded;
+    // console.log(decoded);
+
     next();
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   }
 };
 

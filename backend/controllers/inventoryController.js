@@ -123,6 +123,7 @@ export const getInventoryItem = async (req, res) => {
 export const updateInventoryItem = async (req, res) => {
   try {
     const _id = req.params.id;
+    
     const {
       itemCode,
       itemName,

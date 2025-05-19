@@ -16,7 +16,11 @@ router.post(
     .withMessage("email required")
     .isEmail()
     .withMessage("invalid email"),
-  body("password").notEmpty().withMessage("password required"),
+  body("password")
+    .notEmpty()
+    .withMessage("password required")
+    .isLength({ min: 8 })
+    .withMessage("Password must be least 5 characters"),
   (req, res) => {
     const error = validationResult(req);
 

@@ -3,10 +3,12 @@ import mongoose from "mongoose";
 const productSchema = new mongoose.Schema(
   [
     {
-      user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
-      },
+      user_id: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user",
+        },
+      ],
     },
     {
       title: {
@@ -57,6 +59,14 @@ const productSchema = new mongoose.Schema(
       video_demo_url: {
         type: String,
       },
+    },
+    {
+      customer_ids: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "customer",
+        },
+      ],
     },
   ],
   { timestamps: true }

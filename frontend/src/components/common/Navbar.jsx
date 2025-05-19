@@ -1,6 +1,10 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../services/api";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="wrapper bg-green-100">
@@ -15,43 +19,50 @@ export default function Navbar() {
               <nav>
                 <ul className="flex sm:gap-x-16 gap-x-4">
                   <li>
-                    <a href="#">Home</a>
+                    <a href="#">Dashboard</a>
                   </li>
                   <li>
-                    <a href="#">About</a>
+                    <a href="#">Reports & Analytics</a>
                   </li>
                   <li>
-                    <a href="#">Contact</a>
+                    <a href="#">lorem</a>
                   </li>
                 </ul>
               </nav>
             </div>
             <div className="nav-bar-right flex sm:gap-x-8 gap-x-2">
               <button>a</button>
-              <button>b</button>
+              <button
+                onClick={async (e) => {
+                  const response = await api.post("/authentication/logout");
+                  console.log(response);
+                  navigate("/login");
+                  toast.success(response.data.message);
+                }}
+                className="text-sm bg-white p-1 rounded-md font-semibold cursor-pointer"
+              >
+                Logout
+              </button>
             </div>
           </div>
 
-          <div className="navbar-module py-1 px-8 py-2">
+          <div className="navbar-module px-8 py-2">
             <div className="mini-navbar-module">
               <ul className="flex sm:gap-x-16 gap-x-4 items-center justify-center">
                 <li>
-                  <a href=""> navlink</a>
+                  <Link to={"/product/get"}>Inventory Page</Link>
+                </li>
+                {/* <li>
+                  <Link to={"/inventory/get"}>Inventory</Link>
+                </li> */}
+                <li>
+                  <Link to={"/order/get"}>Sales Orders</Link>
                 </li>
                 <li>
-                  <a href=""> navlink</a>
+                  <Link to={"/customer/get"}>Customers</Link>
                 </li>
                 <li>
-                  <a href=""> navlink</a>
-                </li>
-                <li>
-                  <a href=""> navlink</a>
-                </li>
-                <li>
-                  <a href=""> navlink</a>
-                </li>
-                <li>
-                  <a href=""> navlink</a>
+                  <Link to={"/invoice/get"}>Order</Link>
                 </li>
               </ul>
             </div>

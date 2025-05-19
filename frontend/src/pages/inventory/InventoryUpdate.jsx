@@ -91,7 +91,7 @@ export default function InventoryUpdate({ heading }) {
       });
 
       toast.success(response.data.message);
-      navigate("/inventory/items");
+      navigate("/inventory/get");
     } catch (error) {}
   };
 
@@ -221,7 +221,7 @@ export default function InventoryUpdate({ heading }) {
 
               <div className="w-full flex justify-end gap-4 mt-6">
                 <Link
-                  to={"/inventory/items"}
+                  to={"/inventory/get"}
                   className="px-4 py-1 items-end rounded-md bg-red-300 hover:bg-red-200 focus:bg-red-200 outline-none"
                 >
                   Back

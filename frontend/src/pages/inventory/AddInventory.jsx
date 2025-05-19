@@ -53,9 +53,26 @@ export default function AddInventory({ heading }) {
 
   const putItem = async () => {
     try {
+      // const itemExist = await api.get("/inventory");
+      // const item = itemExist.data.data;
+
+      // const exist = item.filter((item) => item.itemName == Item.itemName);
+      // console.log(exist);
+
+      // if (exist) {
+      //   try {
+      //     const updateInventoryItem = await api.put(`/inventory/${exist[0]._id}`, { ...Item });
+      //     toast.success(updateInventoryItem.data.message);
+      //     return;
+      //   } catch (error) {
+      //     console.error(error);
+      //   }
+      // }
+
       const response = await api.post("/inventory", { ...Item });
+
       toast.success(response.data.message);
-      navigate("/inventory/items");
+      navigate("/inventory/get");
     } catch (error) {
       console.error(error);
     }
@@ -178,7 +195,7 @@ export default function AddInventory({ heading }) {
 
               <div className="w-full flex justify-end gap-4 mt-6">
                 <Link
-                  to={"/inventory/items"}
+                  to={"/inventory/get"}
                   className="px-4 py-1 items-end rounded-md bg-red-300 hover:bg-red-200 focus:bg-red-200 outline-none"
                 >
                   Back

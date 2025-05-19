@@ -16,7 +16,7 @@ export const loginController = async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(password, userExist.password);
+    const isMatch = bcrypt.compare(password, userExist.password);
 
     if (!isMatch) {
       return res
@@ -30,14 +30,16 @@ export const loginController = async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES || "1h" }
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 3600000,
-    });
-
-    res.status(200).json({ success: true, message: "login succesful" });
+    res.status(200);
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: false, // false for localhost development
+        sameSite: "lax", // or 'strict' for localhost
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+        path: "/", // important for all routes
+      })
+      .json({ success: true, message: "login successful" });
   } catch (error) {
     res
       .status(500)
@@ -70,12 +72,12 @@ export const registerController = async (req, res) => {
       expiresIn: process.env.JWT_EXPIRES || "1h",
     });
 
-    res
-      .status(200)
+    return res
+      .status(201)
       .cookie("token", token, {
         httpOnly: true,
         secure: false,
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 3600000,
       })
       .json({
@@ -83,10 +85,10 @@ export const registerController = async (req, res) => {
         message: "user create successfully",
       });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error + " server error during registration",
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: error + " server error during registration",
+    // });
   }
 };
 
