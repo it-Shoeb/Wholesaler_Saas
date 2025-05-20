@@ -32,9 +32,11 @@ export default function Layout() {
 
   return (
     <>
-      <div className="wrapper p-1 min-h-screen">
+      <div className="wrapper sm:p-4 p-2 min-h-screen bg-secondary font-Josefin">
         <Navbar />
-        <Outlet />
+        <div className="sm:ml-0 ml-9 mt-2">
+          <Outlet />
+        </div>
       </div>
     </>
     /* {User ? ( */

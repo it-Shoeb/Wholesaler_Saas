@@ -1,1 +1,9 @@
-@import 'tailwindcss'
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #f6f6f6;
+  --color-secondary: #f6f8fa;
+  --font-Josefin: "Varela Round";
+  /* --color-tertiary: #f6f6f6; */
+}

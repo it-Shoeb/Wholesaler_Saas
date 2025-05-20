@@ -36,7 +36,7 @@ export default function OrderGet() {
   return (
     <>
       {console.log(Page)}
-      <div className="wrapper bg-green-50 min-h-[calc(100vh-100px)] flex flex-col p-2">
+      <div className="wrapper bg-green-50 sm:min-h-[calc(100vh-85px)] min-h-[calc(100vh-70px)] flex flex-col p-2">
         <div className="inner-wrapper flex flex-col grow">
           <div className="top-wrapper">
             <div className="order-overall-info flex">
@@ -102,7 +102,8 @@ export default function OrderGet() {
 
           <div className="bottom-wrapper overflow-auto [scrollbar-width:none] flex flex-col grow">
             <table className="w-full text-left text-[10px] md:text-[14px]">
-              <thead className="sticky top-0">
+              {/* <thead className="sticky top-0"> */}
+              <thead className="">
                 <tr className="">
                   <th className="text-left p-3">Sr No</th>
                   <th className="text-left p-3">Customer Name</th>
@@ -125,7 +126,9 @@ export default function OrderGet() {
                     className={index % 2 == 0 ? "bg-green-100" : "bg-white"}
                   >
                     <td className="text-left p-3 border">{index + 1}</td>
-                    <td className="text-left p-3 border">{item.customerName}</td>
+                    <td className="text-left p-3 border">
+                      {item.customerName}
+                    </td>
                     <td className="text-left p-3 flex flex-col border h-full">
                       <div className="border w-1/4">
                         <img
@@ -135,7 +138,9 @@ export default function OrderGet() {
                         />
                       </div>
                     </td>
-                    <td className="text-left p-3 border">{item.card[0].cardName}</td>
+                    <td className="text-left p-3 border">
+                      {item.card[0].cardName}
+                    </td>
                     <td className="text-left p-3 flex flex-col border h-full">
                       <div className="border w-1/4">
                         <img
@@ -148,7 +153,9 @@ export default function OrderGet() {
                     <td className="text-left p-3 border">
                       {item.customer_id[0].customerNumber}
                     </td>
-                    <td className="text-left p-3 border">{item?.card[0]?.quantity}</td>
+                    <td className="text-left p-3 border">
+                      {item?.card[0]?.quantity}
+                    </td>
                     <td className="text-left p-3 border">
                       {item.ProfingDate?.slice(1, 10)}
                     </td>
@@ -156,7 +163,9 @@ export default function OrderGet() {
                       {item.DeliveryDate?.slice(1, 10)}
                     </td>
                     <td className="text-left p-3 border">{item.totalAmount}</td>
-                    <td className="text-left p-3 border">{item.advanceAmount}</td>
+                    <td className="text-left p-3 border">
+                      {item.advanceAmount}
+                    </td>
                     <td className="text-left flex gap-2 p-3">
                       <button
                         className="px-2 py-1 bg-red-200 rounded-md hover:bg-red-100 focus:bg-red-100 cursor-pointer"

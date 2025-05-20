@@ -56,7 +56,7 @@ export default function UserGet() {
   return (
     <>
       {console.log(Customer)}
-      <div className="wrapper bg-green-50 min-h-[calc(100vh-100px)] flex flex-col p-2">
+      <div className="wrapper bg-green-50 sm:min-h-[calc(100vh-85px)] min-h-[calc(100vh-70px)] flex flex-col p-2">
         <div className="inner-wrapper flex flex-col grow">
           <div className="wrapper-top">
             <div className="user-overall-info flex">
@@ -139,7 +139,8 @@ export default function UserGet() {
 
           <div className="wrapper-bottom  overflow-auto [scrollbar-width:none] flex flex-col grow">
             <table className="w-full text-left text-[10px] md:text-[14px]">
-              <thead className="sticky top-0">
+              {/* <thead className="sticky top-0"> */}
+              <thead className="">
                 <tr>
                   <th className="p-3">Sr No</th>
                   <th className="p-3">Customer Name</th>
