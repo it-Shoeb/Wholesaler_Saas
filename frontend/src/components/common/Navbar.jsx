@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "react-toastify";
@@ -11,11 +11,21 @@ import { FaUsers } from "react-icons/fa6";
 import { FaUserLarge } from "react-icons/fa6";
 
 import "../../App.css";
+import { AuthContext, UseAuth } from "../../contexts/AuthContextProvider";
 
 export default function Navbar() {
   const [IsActive, setIsActive] = useState(false);
   const [ActiveNavbar, setActiveNavbar] = useState(true);
   const navigate = useNavigate();
+
+  const { logout } = UseAuth();
+
+  const handleLogout = async (e) => {
+    const response = await logout();
+    navigate("/login");
+    toast.success(response.data.message);
+  };
+
   return (
     <>
       <div className="wrapper bg-[#ffffff] rounded-full px-2">
@@ -135,11 +145,8 @@ export default function Navbar() {
 
             <div className="nav-bar-right sm:gap-x-8 gap-x-2 flex items-center">
               <button
-                onClick={async (e) => {
-                  const response = await api.post("/authentication/logout");
-                  console.log(response);
-                  navigate("/login");
-                  toast.success(response.data.message);
+                onClick={(e) => {
+                  handleLogout(e);
                 }}
                 className="text-sm bg-white p-1 rounded-md font-semibold cursor-pointer h-full"
               >

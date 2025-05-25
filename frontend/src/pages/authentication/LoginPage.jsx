@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "react-toastify";
+import { UseAuth } from "../../contexts/AuthContextProvider";
 
 export default function LoginPage() {
+  const { login } = UseAuth();
   const navigate = useNavigate();
   const [User, setUser] = useState({
     email: "",
@@ -12,9 +14,12 @@ export default function LoginPage() {
 
   const checkLogin = async () => {
     try {
-      const response = await api.post("/authentication/login", { ...User });
-      toast.success(response.data.message);
-      navigate("/product/get/");
+      const { data } = await login(User);
+      if (data.success) {
+        navigate("/product/get");
+      }
+      toast.success(data.message);
+      console.log("response:", data);
     } catch (error) {
       toast.error(error.response.data.message);
     }
