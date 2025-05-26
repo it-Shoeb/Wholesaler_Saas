@@ -15,18 +15,20 @@ import LoginPage from "./pages/authentication/LoginPage.jsx";
 import RegistrationPage from "./pages/authentication/RegistrationPage.jsx";
 import GetCustomers from "./pages/customer/GetCustomers.jsx";
 import CreateCustomer from "./pages/customer/CreateCustomer.jsx";
+import Navbar from "./components/common/Navbar.jsx";
 
 function App() {
   return (
     <>
+      {/* <Navbar> */}
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Layout />}>
             {/* <Route index element={<ProductGet />} /> */}
-            <Route path="product/get" element={<ProductGet />} />
-            <Route path="product/create" element={<ProductCreate />} />
-            <Route path="customer/get" element={<GetCustomers />} />
-            <Route path="customer/create" element={<CreateCustomer />} />
+            <Route path="/product/get" element={<ProductGet />} />
+            <Route path="/product/create" element={<ProductCreate />} />
+            <Route path="/customer/get" element={<GetCustomers />} />
+            <Route path="/customer/create" element={<CreateCustomer />} />
             {/* <Route path="product/get" element={<ProductGet />} /> */}
           </Route>
         </Route>
@@ -35,6 +37,7 @@ function App() {
           <Route path="/registration" element={<RegistrationPage />} />
         </Route>
       </Routes>
+      {/* </Navbar> */}
     </>
   );
 }

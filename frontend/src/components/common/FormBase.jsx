@@ -8,6 +8,7 @@ export default function FormBase({ title, onSubmit, children, enctype }) {
         <form action="" onSubmit={onSubmit} enctype={enctype || ""}>
           {children}
           <div className="">
+            <button>Discard</button>
             <input type="submit" value={title} />
           </div>
         </form>

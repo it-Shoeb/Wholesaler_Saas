@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import CustomerUpdate from "../../components/forms/customer/CustomerUpdate.jsx";
 import {
   deleteCustomer,
   getCustomers,
@@ -7,22 +6,46 @@ import {
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import Pagination from "../../components/Pagination.jsx";
+import ActionBar from "../../components/ActionBar.jsx";
+
+import CustomerUpdate from "../../components/forms/customer/CustomerUpdate.jsx";
+
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+
+import pagination from "../../services/pagination.js";
+
 export default function GetCustomers() {
   const [Customers, setCustomers] = useState([]);
   const [CustomerId, setCustomerId] = useState("");
+  const [Page, setPage] = useState(1);
+  const [TotalPage, setTotalPage] = useState(1);
+  const [PerPage, setPerPage] = useState(5);
 
   useEffect(() => {
     fetchCustomers();
-  }, []);
+  }, [Page]);
 
   const fetchCustomers = async () => {
     const { data, error } = await getCustomers();
-    console.log("data, error:", data, error);
+
     if (error) {
-      toast.error(error);
+      return toast.error(error);
     }
-    setCustomers(data.data);
+
+    const { pageWiseData, totalPage } = pagination(Page, PerPage, data.data);
+
+    setTotalPage(totalPage);
+    setCustomers(pageWiseData);
     toast.success(data.data.message);
+
+    // console.log("Page, PerPage:", Page, PerPage);
+    // console.log("startIndex, endIndex:", startIndex, endIndex);
+    // console.log("TotalPage", TotalPage);
+    // console.log("pageWise:", pageWise);
+
+    // const pageWise = data.data.slice(startIndex, endIndex);
   };
 
   const handleDelete = async (e, id) => {
@@ -36,31 +59,29 @@ export default function GetCustomers() {
   return (
     <>
       {console.log("CustomerId:", CustomerId)}
-      <div className="wrapper bg-white flex flex-col min-h-[calc(100vh-84px)] sm:p-4 p-2 rounded-2xl overflow-auto text-xs">
-        <div className="inner-wrapper bg-gray-600 grow flex">
-          <div className="customers flex sm:flex-row flex-col gap-2 grow">
-            <div className="flex-3 bg-cyan-300 flex flex-col rounded-2xl">
-              <div className="action-bar flex items-center justify-between">
-                <p>Customer</p>
-
-                <div className="flex items-center">
-                  <div className="">
-                    <input
-                      type="search"
-                      name=""
-                      id=""
-                      placeholder="search something..."
-                    />
-                  </div>
-                  <Link to={"/customer/create"}>Create Customer</Link>
-                </div>
+      <div className="wrapper flex flex-col min-h-[calc(100vh-84px)] rounded-2xl overflow-auto text-xs">
+        <div className="inner-wrapper grow flex">
+          <div className="customers flex lg:flex-row flex-col gap-2 grow relative">
+            <div className="flex-3 flex flex-col rounded-2xl bg-white sm:p-4 p-2">
+              <div className="mb-4">
+                <ActionBar title="Customers" createRoute="/customer/create" />
               </div>
-              <div className="customer-lhs border h-[calc(100vh-116px)] overflow-auto grid sm:grid-cols-3 md:grid-cols-6 gap-4">
+
+              <div className="customer-lhs overflow-auto grid sm:grid-cols-3 md:grid-cols-6 gap-4">
                 {Customers?.map((customer) => (
-                  <div className="card">
-                    <p>{customer.customerName}</p>
-                    <p>{customer.customerEmail}</p>
-                    <p>{customer.customerNumber}</p>
+                  <div className="card flex">
+                    <div
+                      className={`http://localhost:3000/uploads/customers/${customer.customerImage[0]?.filename}`}
+                    >
+                      {/* <img src="" alt="" /> */}
+                      {console.log(`http://localhost:3000/uploads/customers/${customer.customerImage[0]?.filename}`)}
+                    </div>
+
+                    <div className="">
+                      <p>{customer.customerName}</p>
+                      <p>{customer.customerEmail}</p>
+                      <p>{customer.customerNumber}</p>
+                    </div>
                     <button
                       onClick={(e) => {
                         handleDelete(e, customer._id);
@@ -78,8 +99,49 @@ export default function GetCustomers() {
                   </div>
                 ))}
               </div>
+
+              <div className="wrapper mt-auto">
+                {/* <Pagination
+                  totalPage={TotalPage}
+                  page={Page}
+                  data={Customers}
+                /> */}
+
+                <div className="flex items-center justify-between px-4 py-1 shadow hover:shadow-blue-400 rounded-full transition duration-300">
+                  <div className="pagination-lhs">
+                    Page {Page <= 9 ? `0${Page}` : Page} of{" "}
+                    {TotalPage <= 9 ? `0${TotalPage}` : TotalPage}
+                  </div>
+
+                  <div className="pagination-rhs flex items-center gap-4">
+                    <button
+                      className={`text-white p-2 rounded-md hover:bg-gray-700 cursor-pointer ${
+                        Page <= 1 ? "bg-gray-500" : "bg-black"
+                      }`}
+                      disabled={Page <= 1}
+                      onClick={(e) => {
+                        setPage(Page - 1);
+                      }}
+                    >
+                      <FiArrowLeft />
+                    </button>
+                    <p>{Page <= 9 ? `0${Page}` : Page}</p>
+                    <button
+                      className={`text-white p-2 rounded-md hover:bg-gray-700 cursor-pointer ${
+                        Page >= TotalPage ? "bg-gray-500" : "bg-black"
+                      }`}
+                      disabled={Page >= TotalPage}
+                      onClick={(e) => {
+                        setPage(Page + 1);
+                      }}
+                    >
+                      <FiArrowRight />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex-1 bg-amber-300 flex flex-col rounded-2xl">
+            <div className="flex-1 flex flex-col rounded-2xl bg-white sm:p-4 p-2 lg:static absolute bottom-0 w-full">
               <div className="customer-lhs border h-[calc(100vh-116px)] overflow-auto p-2">
                 <CustomerUpdate CustomerId={CustomerId} />
               </div>

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 import { UseAuth } from "../../contexts/AuthContextProvider";
+// import { AuthContext } from "../../contexts/AuthContextProvider";
 
 export default function LoginPage() {
-  const { login } = UseAuth();
+  const { login, setIsAuthenticate } = UseAuth();
+  // const { login, setIsAuthenticate } = useContext(AuthContext);
   const navigate = useNavigate();
   const [User, setUser] = useState({
     email: "",
@@ -15,9 +17,11 @@ export default function LoginPage() {
   const checkLogin = async () => {
     try {
       const { data } = await login(User);
+      // const { data } = await api.post("/authentication/login", { ...User });
       if (data.success) {
         navigate("/product/get");
       }
+      setIsAuthenticate(true);
       toast.success(data.message);
       console.log("response:", data);
     } catch (error) {

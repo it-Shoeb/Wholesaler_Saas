@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 
@@ -11,18 +11,23 @@ import { FaUsers } from "react-icons/fa6";
 import { FaUserLarge } from "react-icons/fa6";
 
 import "../../App.css";
-import { AuthContext, UseAuth } from "../../contexts/AuthContextProvider";
+import { UseAuth } from "../../contexts/AuthContextProvider";
+// import { AuthContext } from "../../contexts/AuthContextProvider";
 
-export default function Navbar() {
+export default function Navbar({ children }) {
   const [IsActive, setIsActive] = useState(false);
   const [ActiveNavbar, setActiveNavbar] = useState(true);
   const navigate = useNavigate();
 
-  const { logout } = UseAuth();
+  const { logout, setIsAuthenticate } = UseAuth();
+  // const { logout, setIsAuthenticate } = useContext(AuthContext);
 
   const handleLogout = async (e) => {
     const response = await logout();
+    // const response = await api.post("/authentication/logout");
+
     navigate("/login");
+    setIsAuthenticate(false);
     toast.success(response.data.message);
   };
 
@@ -156,6 +161,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      {/* <Outlet /> */}
+      {children}
     </>
   );
 }

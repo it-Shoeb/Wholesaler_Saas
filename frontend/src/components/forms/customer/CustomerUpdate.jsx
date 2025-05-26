@@ -64,7 +64,7 @@ export default function CustomerUpdate({ CustomerId }) {
 
           <FormInput
             label="Customer Name"
-            name="customerName" 
+            name="customerName"
             value={Values.customerName}
             onChange={handleChange}
             placeholder="Enter Customer Name"

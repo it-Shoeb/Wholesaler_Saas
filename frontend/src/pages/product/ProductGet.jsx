@@ -62,10 +62,11 @@ export default function ProductGet() {
       return;
     }
 
-    setTotalPage(Math.ceil(data.length / 5));
-    const { startIndex, endIndex } = pagination(Page, ProductPerPage);
-    const pageWiseData = data.slice(startIndex, endIndex);
+    const { pageWiseData, totalPage } = pagination(Page, ProductPerPage, data);
+
+    setTotalPage(totalPage);
     setProducts(pageWiseData);
+
     // setProducts(data.data);
     setLoading(false);
   };
@@ -141,9 +142,13 @@ export default function ProductGet() {
       return product.title.toLowerCase().includes(e.target.value.toLowerCase());
     });
 
-    setTotalPage(Math.ceil(products.length / 5));
-    const { startIndex, endIndex } = pagination(Page, ProductPerPage);
-    const pageWiseData = products.slice(startIndex, endIndex);
+    const { pageWiseData, totalPage } = pagination(
+      Page,
+      ProductPerPage,
+      products
+    );
+
+    setTotalPage(totalPage);
     setProducts(pageWiseData);
   };
 

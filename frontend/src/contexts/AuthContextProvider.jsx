@@ -8,29 +8,29 @@ const AuthContext = createContext();
 function AuthContextProvider({ children }) {
   const [User, setUser] = useState(null);
   const [IsAuthenticate, setIsAuthenticate] = useState(false);
-  const [Loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    const verifyAuth = async () => {
+      try {
+        const response = await api.get("/authentication/check");
+        setUser(response.data.user);
+        setIsAuthenticate(true);
+      } catch (error) {
+        setUser(null);
+        setIsAuthenticate(false);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const fetchUser = async () => {
-    try {
-      const response = await api.get("/authentication/check");
-      setUser(response.data.user);
-      setIsAuthenticate(true);
-    } catch (error) {
-      setUser(null);
-      setIsAuthenticate(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+    verifyAuth();
+  }, []);
 
   const login = async (User) => {
     try {
       const response = await api.post("/authentication/login", { ...User });
-      setUser(User);
+      // setUser(User);
       setIsAuthenticate(true);
       return response;
     } catch (error) {
