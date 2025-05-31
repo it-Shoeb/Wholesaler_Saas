@@ -26,6 +26,7 @@ import inventoryRoute from "./routes/inventoryRoute.js";
 import invoiceRoute from "./routes/invoiceRoute.js";
 import reportRoute from "./routes/reportRoute.js";
 import customerRoute from "./routes/customerRoute.js";
+import userRoute from "./routes/userRoute.js";
 
 import authentication from "./middleware/authentication.js";
 import checkRole from "./middleware/checkRole.js";
@@ -37,6 +38,7 @@ app.get("/authentication/check", authentication, (req, res) => {
 app.use("/product", authentication, productRoute);
 app.use("/order", authentication, orderRoute);
 app.use("/customer", authentication, customerRoute);
+app.use("/user", authentication, userRoute);
 // app.use("/inventory", authentication, inventoryRoute);
 // app.use("/invoice", authentication, invoiceRoute);
 app.use("/report", authentication, reportRoute);

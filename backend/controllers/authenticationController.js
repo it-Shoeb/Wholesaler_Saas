@@ -6,6 +6,7 @@ import userModel from "../models/userModel.js";
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("req.body:", req.body);
 
     const userExist = await userModel.findOne({ email }).select("+password");
 

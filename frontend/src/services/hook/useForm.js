@@ -5,12 +5,17 @@ const useForm = (initialValues) => {
 
   const handleChange = (e) => {
     const { name, value, files, type } = e.target;
-    console.log("name, value, files, type:", name, value, files, type);
+    // console.log("name, value, files, type:", name, value, files, type);
 
     let newValue;
-    type === "file" ? (newValue = files[0]) : (newValue = value);
-    
-    console.log("newValue:", newValue);
+    if (name == "customerImage") {
+      newValue = files[0];
+    } else {
+      newValue = value;
+    }
+
+    // type === "file" ? (newValue = files[0]) : (newValue = value);
+    // console.log("newValue:", newValue);
 
     setValues({ ...Values, [name]: newValue });
   };

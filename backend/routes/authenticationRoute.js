@@ -25,7 +25,7 @@ router.post(
     const error = validationResult(req);
 
     if (!error.isEmpty()) {
-      res.status(501).send(error.array);
+      return res.status(501).send(error.array());
     }
 
     loginController(req, res);

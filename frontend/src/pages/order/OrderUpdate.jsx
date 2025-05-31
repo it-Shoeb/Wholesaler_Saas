@@ -29,15 +29,21 @@ export default function OrderUpdate({ heading }) {
     totalAmount: Number(0),
     advanceAmount: "",
   });
+
   const [CustomerList, setCustomerList] = useState([]);
   const [List, setList] = useState([]);
   const setDate = new Date();
 
+  // useEffect(() => {
+  //   setItem();
+  // }, [id]);
+
   const setItem = async () => {
     const response = await api.get(`/order/${id}`);
+    console.log("response:", response);
     const res = response.data.data;
 
-    console.log(res);
+    // console.log(res);
 
     setCustomer((prev) => ({
       ...res,
@@ -51,7 +57,7 @@ export default function OrderUpdate({ heading }) {
     const product = await api.get("/product");
     const customerList = await api.get("/customer");
 
-    console.log(product.data.data);
+    // console.log(product.data.data);
 
     setCustomerList(customerList.data.data);
     setList(product.data.data);
@@ -104,7 +110,7 @@ export default function OrderUpdate({ heading }) {
           (item) => item.title == Customer.card[0].cardName
         );
 
-        console.log(res);
+        // console.log(res);
         const quantity = Number(value);
 
         prevCard[0] = {
@@ -134,7 +140,7 @@ export default function OrderUpdate({ heading }) {
 
   return (
     <>
-      <div className="wrapper bg-green-50 min-h-[calc(100vh-90px)] p-6 max-[480px]:p-1">
+      <div className="wrapper bg-white rounded-2xl min-h-[calc(100vh-90px)] p-6 max-[480px]:p-1">
         <div className="inner-wrapper">
           <h1 className="text-4xl font-bold ">{heading}</h1>
 
@@ -163,7 +169,7 @@ export default function OrderUpdate({ heading }) {
                 <option value="">Select Customer</option>
                 {CustomerList.map((customer) => (
                   <option key={customer._id} value={customer.customerName}>
-                    {console.log(customer.customerName, Customer.customerName)}
+                    {/* {console.log(customer.customerName, Customer.customerName)} */}
                     {customer.customerName}
                   </option>
                 ))}
@@ -197,14 +203,6 @@ export default function OrderUpdate({ heading }) {
                 onChange={(e) => {
                   handleFormData(e);
                 }}
-              />
-            </div>
-
-            <div className="submit-wrapper flex w-full items-right justify-end gap-4">
-              <input
-                type="button"
-                value="Check Customer"
-                className="bg-green-300 py-2 px-4 rounded-md focus:bg-green-200 hover:bg-green-200 text-sm font-bold"
               />
             </div>
 
@@ -253,7 +251,7 @@ export default function OrderUpdate({ heading }) {
                 }
                 {/* {List.find((item) => item.itemName == Customer.card[0].cardName)
                   ?.currentStock || 0}
-                {console.log(List)} */}
+                // {console.log(List)} */}
               </p>
             </div>
             <div className="flex flex-col sm:w-1/3 p-2 w-full text-sm">
@@ -410,7 +408,7 @@ export default function OrderUpdate({ heading }) {
               <input
                 type="submit"
                 value="Place Order"
-                className="bg-green-300 py-2 px-4 rounded-md focus:bg-green-200 hover:bg-green-200 text-sm font-bold"
+                className="bg-gray-900 text-white py-2 px-4 rounded-md focus:bg-gray-700 hover:bg-gray-700 text-sm font-bold"
               />
             </div>
           </form>

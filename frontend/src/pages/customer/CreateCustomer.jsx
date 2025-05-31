@@ -53,6 +53,7 @@ export default function CreateCustomer() {
       toast.error(error);
     }
     toast.success(data.message);
+    navigate('/customer/get')
 
     // const response = await api.post("/customer", formData);
     // if (!response.data.success) {
@@ -67,7 +68,7 @@ export default function CreateCustomer() {
   return (
     <>
       {/* {console.log(User)} */}
-      <div className="wrapper min-h-[calc(100vh-90px)] bg-green-100">
+      <div className="wrapper min-h-[calc(100vh-90px)] bg-white sm:p-4 p-2 rounded-2xlr">
         <div className="inner-wrapper">
           {/* <p className="text-4xl font-bold">{heading}</p> */}
 
@@ -80,7 +81,11 @@ export default function CreateCustomer() {
               handleForm(e);
               }}
               > */}
-          <FormBase onSubmit={handleForm} title={"Create Form"} enctype={'multipart/form-data'}>
+          <FormBase
+            onSubmit={handleForm}
+            title={"Create Customer"}
+            enctype={"multipart/form-data"}
+          >
             <FormInput
               type="file"
               name={"customerImage"}
@@ -111,6 +116,20 @@ export default function CreateCustomer() {
               value={Values.customerNumber}
               onChange={handleChange}
             />
+
+            <div className="flex items-center gap-4">
+              <Link
+              to={'/customer/get'}
+                className="p-2 bg-secondary hover:bg-gray-100 focus:outline-0 focus:bg-gray-100 rounded-md w-full text-center"
+              >
+                Back
+              </Link>
+              <input
+                className="p-2 bg-secondary hover:bg-gray-100 focus:outline-0 focus:bg-gray-100 rounded-md w-full"
+                type="submit"
+                value="Create Customer"
+              />
+            </div>
 
             {/* <div className="flex gap-2 w-1/2 flex-col p-2">
               <label htmlFor="customerName">customerName</label>

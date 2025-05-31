@@ -135,7 +135,7 @@ export default function Navbar({ children }) {
                       IsActive ? "py-2 px-4" : "py-2 px-2"
                     }`}
                     onClick={(e) => {}}
-                    to={""}
+                    to={"/users/get"}
                   >
                     <>
                       <div className="">

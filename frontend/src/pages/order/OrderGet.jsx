@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import ActionBar from "../../components/ActionBar";
 
 export default function OrderGet() {
   const [Response, setResponse] = useState([]);
@@ -36,20 +37,9 @@ export default function OrderGet() {
   return (
     <>
       {console.log(Page)}
-      <div className="wrapper bg-green-50 sm:min-h-[calc(100vh-85px)] min-h-[calc(100vh-70px)] flex flex-col p-2">
+      <div className="wrapper bg-white sm:p-4 p-2 sm:min-h-[calc(100vh-85px)] min-h-[calc(100vh-70px)] flex flex-col rounded-2xl">
         <div className="inner-wrapper flex flex-col grow">
-          <div className="top-wrapper">
-            <div className="order-overall-info flex">
-              <div className="w-full bg-green-100 p-4 flex items-center gap-4 rounded-lg m-2">
-                <p className="p-4 bg-white rounded-full font-bold">
-                  {Document < 9 ? "0" + Document : Document}
-                </p>
-                <p className="font-semibold">Total Order</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="middle-wrapper">
+          {/* <div className="middle-wrapper">
             <div className="table-action-bar flex justify-between items-center px-1 md:px-4">
               <div className="search w-1/3">
                 <input
@@ -98,99 +88,106 @@ export default function OrderGet() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+
+          <ActionBar title={"Order"} createRoute={"/order/create"} />
 
           <div className="bottom-wrapper overflow-auto [scrollbar-width:none] flex flex-col grow">
-            <table className="w-full text-left text-[10px] md:text-[14px]">
+            <table className="w-full text-left md:text-[14px]">
               {/* <thead className="sticky top-0"> */}
               <thead className="">
                 <tr className="">
-                  <th className="text-left p-3">Sr No</th>
-                  <th className="text-left p-3">Customer Name</th>
-                  <th className="text-left p-3">Customer Image</th>
-                  <th className="text-left p-3">Card Name</th>
-                  <th className="text-left p-3">Card Image</th>
-                  <th className="text-left p-3">Customer Number</th>
-                  <th className="text-left p-3">Quantity</th>
-                  <th className="text-left p-3">Proofing Date</th>
-                  <th className="text-left p-3">Delivery Date</th>
-                  <th className="text-left p-3">Total</th>
-                  <th className="text-left p-3">Advance</th>
-                  <th className="text-center p-3">Action</th>
+                  <th className="text-center text-xs">Sr No</th>
+                  <th className="text-left text-xs">Customer Name</th>
+                  <th className="text-left text-xs">Customer Image</th>
+                  <th className="text-left text-xs">Card Name</th>
+                  <th className="text-left text-xs">Card Image</th>
+                  <th className="text-left text-xs">Customer Number</th>
+                  <th className="text-left text-xs">Quantity</th>
+                  <th className="text-left text-xs">Proofing Date</th>
+                  <th className="text-left text-xs">Delivery Date</th>
+                  <th className="text-left text-xs">Total</th>
+                  <th className="text-left text-xs">Advance</th>
+                  <th className="text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {Response.map((item, index) => (
                   <tr
                     key={index}
-                    className={index % 2 == 0 ? "bg-green-100" : "bg-white"}
+                    className={index % 2 == 0 ? "bg-secondary" : "bg-white"}
                   >
-                    <td className="text-left p-3 border">{index + 1}</td>
-                    <td className="text-left p-3 border">
+                    <td className="px-2 text-center text-xs">{index + 1}</td>
+                    <td className="px-2 text-left text-xs">
                       {item.customerName}
                     </td>
-                    <td className="text-left p-3 flex flex-col border h-full">
-                      <div className="border w-1/4">
+                    <td className="px-2 w-[80px]">
+                      <div className="aspect-square w-full">
                         <img
                           src={`http://localhost:3000/${item.customer_id[0]?.customerImage[0]?.path}`}
                           alt=""
-                          className="flex flex-col aspect-square"
+                          className="object-cover w-full"
                         />
                       </div>
                     </td>
-                    <td className="text-left p-3 border">
+                    <td className="px-2 text-left text-xs ">
                       {item.card[0].cardName}
                     </td>
-                    <td className="text-left p-3 flex flex-col border h-full">
-                      <div className="border w-1/4">
+                    <td className="px-2 w-[80px]">
+                      <div className="aspect-square w-full">
                         <img
                           src={`http://localhost:3000/uploads/products/${item?.card[0]?.cardImage}`}
                           alt=""
-                          className="flex flex-col aspect-square"
+                          className="object-cover w-full"
                         />
                       </div>
                     </td>
-                    <td className="text-left p-3 border">
+                    <td className="px-2 text-left text-xs ">
                       {item.customer_id[0].customerNumber}
                     </td>
-                    <td className="text-left p-3 border">
+                    <td className="px-2 text-left text-xs ">
                       {item?.card[0]?.quantity}
                     </td>
-                    <td className="text-left p-3 border">
+                    <td className="px-2 text-left text-xs ">
                       {item.ProfingDate?.slice(1, 10)}
                     </td>
-                    <td className="text-left p-3 border">
+                    <td className="px-2 text-left text-xs ">
                       {item.DeliveryDate?.slice(1, 10)}
                     </td>
-                    <td className="text-left p-3 border">{item.totalAmount}</td>
-                    <td className="text-left p-3 border">
+                    <td className="px-2 text-left text-xs ">
+                      {item.totalAmount}
+                    </td>
+                    <td className="px-2 text-left text-xs ">
                       {item.advanceAmount}
                     </td>
-                    <td className="text-left flex gap-2 p-3">
-                      <button
-                        className="px-2 py-1 bg-red-200 rounded-md hover:bg-red-100 focus:bg-red-100 cursor-pointer"
-                        onClick={async (e) => {
-                          const res = await api.delete(`/order/${item._id}`);
-                          toast.success(res.data.message);
-                          fetchItems();
-                        }}
-                      >
-                        Del
-                      </button>
-                      <Link
-                        to={`/order/update/${item._id}`}
-                        className="px-2 py-1 bg-green-200 rounded-md hover:bg-green-100 focus:bg-green-100 cursor-pointer"
-                      >
-                        Edit
-                      </Link>
+                    <td className="px-2 text-left text-xs w-0">
+                      <div className="cta-wrapper flex gap-2">
+                        <button
+                          className="cursor-pointer hover:underline focus:underline py-1 px-2"
+                          onClick={async (e) => {
+                            const res = await api.delete(`/order/${item._id}`);
+                            toast.success(res.data.message);
+                            fetchItems();
+                          }}
+                        >
+                          Del
+                        </button>
+                        <Link
+                          to={`/order/update/${item._id}`}
+                          className="cursor-pointer hover:underline focus:underline py-1 px-2"
+                        >
+                          Edit
+                        </Link>
 
-                      <Link
-                        to={`/invoice/get/${item._id}`}
-                        target="_blank"
-                        className="px-2 py-1 bg-yellow-200 rounded-md hover:bg-yellow-100 focus:bg-yellow-100"
-                      >
-                        Invoice
-                      </Link>
+                        <Link
+                          to={`/invoice/get/${item._id}`}
+                          target="_blank"
+                          className="cursor-pointer hover:underline focus:underline py-1 px-2"
+                        >
+                          Invoice
+                        </Link>
+                      </div>
+
                       {console.log("item:", item)}
                     </td>
                   </tr>

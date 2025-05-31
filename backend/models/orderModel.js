@@ -45,7 +45,7 @@ const orderSchema = new mongoose.Schema({
   },
   OrderStatus: {
     type: String,
-    enum: ["Order Placed", "Matter Profing", "Order Ready"],
+    enum: ["Order Placed", "On Process", "Completed"],
     default: "Order Placed",
   },
   totalAmount: { type: Number },

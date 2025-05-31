@@ -15,6 +15,7 @@ import CustomerUpdate from "../../components/forms/customer/CustomerUpdate.jsx";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
 import pagination from "../../services/pagination.js";
+import { getCustomer } from "../../services/customer/CustomerApi.jsx";
 
 export default function GetCustomers() {
   const [Customers, setCustomers] = useState([]);
@@ -22,6 +23,7 @@ export default function GetCustomers() {
   const [Page, setPage] = useState(1);
   const [TotalPage, setTotalPage] = useState(1);
   const [PerPage, setPerPage] = useState(5);
+  const [Sidebar, setSidebar] = useState(false);
 
   useEffect(() => {
     fetchCustomers();
@@ -34,18 +36,18 @@ export default function GetCustomers() {
       return toast.error(error);
     }
 
-    const { pageWiseData, totalPage } = pagination(Page, PerPage, data.data);
+    const { pageWiseData, totalPage } = pagination(Page, PerPage, data);
 
     setTotalPage(totalPage);
     setCustomers(pageWiseData);
-    toast.success(data.data.message);
+    toast.success(data.message);
 
     // console.log("Page, PerPage:", Page, PerPage);
     // console.log("startIndex, endIndex:", startIndex, endIndex);
     // console.log("TotalPage", TotalPage);
     // console.log("pageWise:", pageWise);
 
-    // const pageWise = data.data.slice(startIndex, endIndex);
+    // const pageWise = data.slice(startIndex, endIndex);
   };
 
   const handleDelete = async (e, id) => {
@@ -53,6 +55,7 @@ export default function GetCustomers() {
     if (error) {
       toast.error(error);
     }
+    fetchCustomers();
     toast.success(data.message);
   };
 
@@ -64,38 +67,54 @@ export default function GetCustomers() {
           <div className="customers flex lg:flex-row flex-col gap-2 grow relative">
             <div className="flex-3 flex flex-col rounded-2xl bg-white sm:p-4 p-2">
               <div className="mb-4">
-                <ActionBar title="Customers" createRoute="/customer/create" />
+                <ActionBar
+                  title="Customers"
+                  createRoute="/customer/create"
+                  Sidebar={Sidebar}
+                  setSidebar={setSidebar}
+                  setData={setCustomers}
+                  totalPages={setTotalPage}
+                />
               </div>
 
-              <div className="customer-lhs overflow-auto grid sm:grid-cols-3 md:grid-cols-6 gap-4">
+              <div className="customer-lhs overflow-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                 {Customers?.map((customer) => (
-                  <div className="card flex">
-                    <div
-                      className={`http://localhost:3000/uploads/customers/${customer.customerImage[0]?.filename}`}
-                    >
-                      {/* <img src="" alt="" /> */}
-                      {console.log(`http://localhost:3000/uploads/customers/${customer.customerImage[0]?.filename}`)}
+                  <div className="card flex flex-col gap-2 p-2 shadow border-1 border-gray-300 rounded-md">
+                    <div className="card-top flex w-full gap-2 items-center">
+                      <div className="img-container  w-1/3">
+                        <img
+                          src={`http://localhost:3000/uploads/customers/${customer.customerImage[0]?.filename}`}
+                          alt=""
+                          className="aspect-square object-cover"
+                        />
+                      </div>
+
+                      <div className=" w-full">
+                        <p>{customer.customerName}</p>
+                        <p>{customer.customerEmail}</p>
+                        <p>{customer.customerNumber}</p>
+                      </div>
                     </div>
 
-                    <div className="">
-                      <p>{customer.customerName}</p>
-                      <p>{customer.customerEmail}</p>
-                      <p>{customer.customerNumber}</p>
+                    <div className="card-cta flex ">
+                      <button
+                        className="w-full hover:underline focus:underline focus:outline-0"
+                        onClick={(e) => {
+                          handleDelete(e, customer._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        className="w-full hover:underline focus:underline focus:outline-0"
+                        onClick={(e) => {
+                          setCustomerId(customer._id);
+                          setSidebar(true);
+                        }}
+                      >
+                        Edit
+                      </button>
                     </div>
-                    <button
-                      onClick={(e) => {
-                        handleDelete(e, customer._id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        setCustomerId(customer._id);
-                      }}
-                    >
-                      Edit
-                    </button>
                   </div>
                 ))}
               </div>
@@ -141,10 +160,22 @@ export default function GetCustomers() {
                 </div>
               </div>
             </div>
-            <div className="flex-1 flex flex-col rounded-2xl bg-white sm:p-4 p-2 lg:static absolute bottom-0 w-full">
-              <div className="customer-lhs border h-[calc(100vh-116px)] overflow-auto p-2">
-                <CustomerUpdate CustomerId={CustomerId} />
-              </div>
+            <div
+              className={`flex flex-col rounded-2xl bg-white sm:p-4 p-2 lg:static absolute bottom-0 w-full transition-all duration-1000 ease-in-out overflow-auto  ${
+                Sidebar ? "flex-1" : "flex-0 opacity-0 sm:opacity-100"
+              }`}
+            >
+              {Sidebar && (
+                <div
+                  className={`customer-lhs h-[calc(100vh-116px)] p-2`}
+                >
+                  <CustomerUpdate
+                    CustomerId={CustomerId}
+                    Sidebar={Sidebar}
+                    setSidebar={setSidebar}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -174,8 +205,8 @@ export default function GetCustomers() {
 //         return toast.error(error);
 //       }
 
-//       console.log("data.data:", data.data);
-//       setCustomer(data.data);
+//       console.log("data:", data);
+//       setCustomer(data);
 //     } catch (error) {
 //       console.error(error);
 //     } finally {
@@ -191,7 +222,7 @@ export default function GetCustomers() {
 
 //     setSearch(e.target.value);
 //     try {
-//       const response = (await api.get("/customer")).data.data;
+//       const response = (await api.get("/customer")).data;
 
 //       const searchResult = response.filter((customer) =>
 //         customer.customerName.toLowerCase().includes(Search.toLowerCase())

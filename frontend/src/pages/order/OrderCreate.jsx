@@ -3,6 +3,7 @@ import api from "../../services/api";
 import { toast } from "react-toastify";
 
 import { Link, useNavigate } from "react-router-dom";
+import FormBase from "../../components/common/FormBase";
 
 export default function OrderCreate({ heading }) {
   const navigate = useNavigate();
@@ -145,7 +146,7 @@ export default function OrderCreate({ heading }) {
       {console.log("Customer:", Customer)}
       {console.log("List:", List)}
       {console.log("CustomerList:", CustomerList)}
-      <div className="wrapper bg-green-50 min-h-[calc(100vh-90px)] p-6 max-[480px]:p-1">
+      <div className="wrapper bg-white rounded-2xl min-h-[calc(100vh-90px)] p-6 max-[480px]:p-1">
         <div className="inner-wrapper">
           <h1 className="text-4xl font-bold ">{heading}</h1>
 
@@ -161,7 +162,7 @@ export default function OrderCreate({ heading }) {
               <select
                 name="customerName"
                 id=""
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="mb-1 border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 onChange={(e) => {
                   handleFormData(e);
                 }}
@@ -188,7 +189,7 @@ export default function OrderCreate({ heading }) {
                 name="customerEmail"
                 id=""
                 placeholder="customerEmail"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.customerEmail}
                 onChange={(e) => {
                   handleFormData(e);
@@ -204,7 +205,7 @@ export default function OrderCreate({ heading }) {
                 name="customerNumber"
                 id=""
                 placeholder="customerNumber"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.customerNumber}
                 onChange={(e) => {
                   handleFormData(e);
@@ -218,7 +219,7 @@ export default function OrderCreate({ heading }) {
               <select
                 name="cardName"
                 id=""
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="mb-1 border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer?.card[0]?.cardName}
                 onChange={(e) => {
                   handleFormData(e);
@@ -250,7 +251,7 @@ export default function OrderCreate({ heading }) {
                     ?.available_stock
                 }
                 placeholder="quantity"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="mb-1 border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.card[0].quantity}
                 onChange={(e) => {
                   handleFormData(e);
@@ -269,7 +270,7 @@ export default function OrderCreate({ heading }) {
                 name="price"
                 id=""
                 placeholder="Price"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer?.card[0]?.price}
                 onChange={(e) => {
                   handleFormData(e);
@@ -283,7 +284,7 @@ export default function OrderCreate({ heading }) {
                 name="language"
                 id=""
                 placeholder="language"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.card[0].language}
                 onChange={(e) => {
                   handleFormData(e);
@@ -297,7 +298,7 @@ export default function OrderCreate({ heading }) {
                 name="color"
                 id=""
                 placeholder="color"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.card[0].color}
                 onChange={(e) => {
                   handleFormData(e);
@@ -311,7 +312,7 @@ export default function OrderCreate({ heading }) {
                 name="specialCard"
                 id=""
                 placeholder="specialCard"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.specialCard}
                 onChange={(e) => {
                   handleFormData(e);
@@ -325,7 +326,7 @@ export default function OrderCreate({ heading }) {
                 name="ProfingDate"
                 id=""
                 placeholder="ProfingDate"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.ProfingDate}
                 onChange={(e) => {
                   handleFormData(e);
@@ -339,7 +340,7 @@ export default function OrderCreate({ heading }) {
                 name="DeliveryDate"
                 id=""
                 placeholder="DeliveryDate"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.DeliveryDate}
                 onChange={(e) => {
                   handleFormData(e);
@@ -353,12 +354,20 @@ export default function OrderCreate({ heading }) {
                 name="OrderStatus"
                 id=""
                 placeholder="OrderStatus"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
+              />
+              <select
+                name="OrderStatus"
+                id=""
                 value={Customer.OrderStatus}
                 onChange={(e) => {
                   handleFormData(e);
                 }}
-              />
+              >
+                <option value="Order Placed">Order Placed</option>
+                <option value="On Process">On Process</option>
+                <option value="Completed">Completed</option>
+              </select>
             </div>
             <div className="flex flex-col sm:w-1/3 p-2 w-full text-sm">
               <label htmlFor="">totalAmount: </label>
@@ -367,7 +376,7 @@ export default function OrderCreate({ heading }) {
                 name="totalAmount"
                 id=""
                 placeholder="totalAmount"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.totalAmount}
                 onChange={(e) => {
                   handleFormData(e);
@@ -381,7 +390,7 @@ export default function OrderCreate({ heading }) {
                 name="advanceAmount"
                 id=""
                 placeholder="advanceAmount"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.advanceAmount}
                 onChange={(e) => {
                   handleFormData(e);
@@ -396,7 +405,7 @@ export default function OrderCreate({ heading }) {
                 name="designImage"
                 id=""
                 placeholder="designImage"
-                className="border rounded-md p-2 focus:bg-green-100 outline-green-300 my-1"
+                className="border border-gray-300 text-gray-500 rounded-md p-2 focus:border-blue-300 outline-0"
                 value={Customer.card[0].designImage}
                 onChange={(e) => {
                   handleFormData(e);
@@ -414,7 +423,7 @@ export default function OrderCreate({ heading }) {
             <div className="submit-wrapper flex w-full items-right justify-end gap-4">
               <Link
                 to={"/order/get"}
-                className="bg-red-300 py-2 px-4 rounded-md focus:bg-red-200 hover:bg-red-200 text-sm font-bold"
+                className="py-2 px-4 rounded-md focus:underline focus:bg-gray-100 hover:bg-gray-100 outline-0 hover:underline text-sm font-bold bg-secondary w-full text-center"
               >
                 Back
               </Link>
@@ -422,9 +431,10 @@ export default function OrderCreate({ heading }) {
               <input
                 type="submit"
                 value="Place Order"
-                className="bg-green-300 py-2 px-4 rounded-md focus:bg-green-200 hover:bg-green-200 text-sm font-bold"
+                className="py-2 px-4 rounded-md focus:underline focus:bg-gray-100 hover:bg-gray-100 outline-0 hover:underline text-sm font-bold bg-secondary w-full text-center"
               />
             </div>
+            {/* </FormBase> */}
           </form>
         </div>
       </div>
