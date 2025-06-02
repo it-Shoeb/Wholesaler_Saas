@@ -13,6 +13,14 @@ app.use(cookieParser()); // Must come after CORS
 app.use(express.urlencoded({ extended: true }));
 configDotenv();
 
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+  }
+}));
+
 app.use("/uploads", express.static(join(process.cwd(), "uploads")));
 // app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 //show image to frontend
