@@ -10,7 +10,7 @@ import { FaBoxOpen } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa6";
 import { FaUserLarge } from "react-icons/fa6";
 
-import "../../App.css";
+// import "../../App.css";
 import { UseAuth } from "../../contexts/AuthContextProvider";
 // import { AuthContext } from "../../contexts/AuthContextProvider";
 
