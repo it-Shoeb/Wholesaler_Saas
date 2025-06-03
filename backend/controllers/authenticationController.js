@@ -39,7 +39,7 @@ export const loginController = async (req, res) => {
         sameSite: "none", // or 'strict' for localhost
         maxAge: 24 * 60 * 60 * 1000, // 1 day
         path: "/", // important for all routes
-        domain: "https://invy-j2ow.onrender.com/login",
+        // domain: "https://invy-j2ow.onrender.com/login",
       })
       .json({ success: true, message: "login successful" });
   } catch (error) {
@@ -82,7 +82,7 @@ export const registerController = async (req, res) => {
         sameSite: "none",
         maxAge: 24 * 60 * 60 * 1000,
         path: "/",
-        domain: "https://invy-j2ow.onrender.com/register",
+        // domain: "https://invy-j2ow.onrender.com/register",
       })
       .json({
         success: true,
