@@ -30,6 +30,8 @@ function AuthContextProvider({ children }) {
   const login = async (User) => {
     try {
       const response = await api.post("/authentication/login", { ...User });
+      console.log("User:", User);
+      console.log("response:", response);
       // setUser(User);
       setIsAuthenticate(true);
       return response;

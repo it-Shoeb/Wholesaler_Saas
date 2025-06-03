@@ -35,8 +35,8 @@ export const loginController = async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: false, // false for localhost development
-        sameSite: "lax", // or 'strict' for localhost
+        secure: true, // false for localhost development
+        sameSite: "strict", // or 'strict' for localhost
         maxAge: 24 * 60 * 60 * 1000, // 1 day
         path: "/", // important for all routes
       })
@@ -77,8 +77,8 @@ export const registerController = async (req, res) => {
       .status(201)
       .cookie("token", token, {
         httpOnly: true,
-        secure: false,
-        sameSite: "none",
+        secure: true,
+        sameSite: "strict",
         maxAge: 3600000,
       })
       .json({
