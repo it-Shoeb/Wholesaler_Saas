@@ -36,9 +36,10 @@ export const loginController = async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         secure: true, // false for localhost development
-        sameSite: "strict", // or 'strict' for localhost
+        sameSite: "none", // or 'strict' for localhost
         maxAge: 24 * 60 * 60 * 1000, // 1 day
         path: "/", // important for all routes
+        domain: "https://invy-j2ow.onrender.com",
       })
       .json({ success: true, message: "login successful" });
   } catch (error) {
@@ -78,8 +79,10 @@ export const registerController = async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
-        maxAge: 3600000,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000,
+        path: "/",
+        domain: "https://invy-j2ow.onrender.com",
       })
       .json({
         success: true,
