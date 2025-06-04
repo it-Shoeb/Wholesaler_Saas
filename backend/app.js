@@ -7,17 +7,17 @@ import cookieParser from "cookie-parser";
 import { configDotenv } from "dotenv";
 import cors from "cors";
 
-const corsOptions = {
-  origin: [
-    "https://invy-iywg.onrender.com/", // Your frontend URL
-    "http://localhost:3000", // For local development
-  ],
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+// const corsOptions = {
+//   origin: [
+//     "https://invy-iywg.onrender.com/", // Your frontend URL
+//     "http://localhost:3000", // For local development
+//   ],
+//   credentials: true,
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+// };
 
-app.use(cors(corsOptions));
+app.use(cors({ origin: "https://invy-iywg.onrender.com/", credentials: true }));
 app.use(express.json());
 app.use(cookieParser()); // Must come after CORS
 app.use(express.urlencoded({ extended: true }));
