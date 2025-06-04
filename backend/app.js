@@ -9,7 +9,7 @@ import cors from "cors";
 
 const corsOptions = {
   origin: [
-    "https://invy-j2ow.onrender.com", // Your frontend URL
+    "https://invy-iywg.onrender.com/", // Your frontend URL
     "http://localhost:3000", // For local development
   ],
   credentials: true,
