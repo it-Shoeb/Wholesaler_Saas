@@ -17,7 +17,7 @@ import cors from "cors";
 //   allowedHeaders: ["Content-Type", "Authorization"],
 // };
 
-app.use(cors({ origin: "https://invy-iywg.onrender.com/", credentials: true }));
+app.use(cors({ origin: "https://invy-iywg.onrender.com", credentials: true }));
 app.use(express.json());
 app.use(cookieParser()); // Must come after CORS
 app.use(express.urlencoded({ extended: true }));
