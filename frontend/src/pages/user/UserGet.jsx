@@ -107,13 +107,6 @@ export default function UserGet() {
 
   return (
     <>
-      {Loading ? (
-        <div className="flex flex-col grow item-center jusify-center">
-          <p className="font-bold text-xl grow flex items-center justify-center">
-            Loading...
-          </p>
-        </div>
-      ) : null}
       {console.log(User)}
       <div className="wrapper h-[calc(100vh-84px)] text-xs">
         <div className="inner-wrapper h-full flex gap-4">
@@ -212,6 +205,14 @@ export default function UserGet() {
                 </tbody>
               </table>
             </div>
+
+            {Loading ? (
+              <div className="flex flex-col grow item-center jusify-center">
+                <p className="font-bold text-xl grow flex items-center justify-center">
+                  Loading...
+                </p>
+              </div>
+            ) : null}
 
             <div className="mt-auto flex items-center justify-between px-4 py-1 shadow hover:shadow-blue-400 rounded-full transition duration-300">
               <div className="pagination-lhs">

@@ -3,7 +3,7 @@ const pagination = (page, perPage, data) => {
   const endIndex = page * perPage;
 
   const totalPage = Math.ceil(data?.length / perPage);
-  const pageWiseData = data.slice(startIndex, endIndex);
+  const pageWiseData = data?.slice(startIndex, endIndex);
 
   return { pageWiseData, totalPage };
 };
