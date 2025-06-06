@@ -156,6 +156,13 @@ export default function ProductGet() {
 
   return (
     <>
+      {Loading ? (
+        <div className="flex flex-col grow item-center jusify-center">
+          <p className="font-bold text-xl grow flex items-center justify-center">
+            Loading...
+          </p>
+        </div>
+      ) : null}
       {/* {console.log(Products)} */}
       <div className="wrapper sm:min-h-[calc(100vh-85px)] min-h-[calc(100vh-70px)] flex flex-col">
         <div className="inner-wrapper grow">

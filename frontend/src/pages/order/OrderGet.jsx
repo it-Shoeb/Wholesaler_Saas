@@ -136,7 +136,7 @@ export default function OrderGet() {
                     <td className="px-2 w-[80px]">
                       <div className="aspect-square w-full">
                         <img
-                          src={`http://localhost:3000/uploads/products/${item?.card[0]?.cardImage}`}
+                          src={`https://invy-coral.vercel.app/uploads/products/${item?.card[0]?.cardImage}`}
                           alt=""
                           className="object-cover w-full"
                         />

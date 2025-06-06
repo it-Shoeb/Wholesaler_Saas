@@ -25,6 +25,8 @@ export default function GetCustomers() {
   const [PerPage, setPerPage] = useState(5);
   const [Sidebar, setSidebar] = useState(false);
 
+  const [Loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetchCustomers();
   }, [Page]);
@@ -34,6 +36,7 @@ export default function GetCustomers() {
 
     if (error) {
       return toast.error(error);
+      setLoading(false);
     }
 
     const { pageWiseData, totalPage } = pagination(Page, PerPage, data);
@@ -41,6 +44,8 @@ export default function GetCustomers() {
     setTotalPage(totalPage);
     setCustomers(pageWiseData);
     toast.success(data.message);
+
+    setLoading(false);
 
     // console.log("Page, PerPage:", Page, PerPage);
     // console.log("startIndex, endIndex:", startIndex, endIndex);
@@ -61,6 +66,13 @@ export default function GetCustomers() {
 
   return (
     <>
+      {Loading ? (
+        <div className="flex flex-col grow item-center jusify-center">
+          <p className="font-bold text-xl grow flex items-center justify-center">
+            Loading...
+          </p>
+        </div>
+      ) : null}
       {console.log("CustomerId:", CustomerId)}
       <div className="wrapper flex flex-col min-h-[calc(100vh-84px)] rounded-2xl overflow-auto text-xs">
         <div className="inner-wrapper grow flex">
@@ -166,9 +178,7 @@ export default function GetCustomers() {
               }`}
             >
               {Sidebar && (
-                <div
-                  className={`customer-lhs h-[calc(100vh-116px)] p-2`}
-                >
+                <div className={`customer-lhs h-[calc(100vh-116px)] p-2`}>
                   <CustomerUpdate
                     CustomerId={CustomerId}
                     Sidebar={Sidebar}

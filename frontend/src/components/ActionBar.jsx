@@ -23,7 +23,7 @@ export default function ActionBar({
   const fetchCustomers = async () => {
     const { data, error } = await getCustomers();
 
-    const response = data.data.filter((customers) => {
+    const response = data?.data?.filter((customers) => {
       return customers.customerName
         .toLowerCase()
         .includes(SearchQuery.toLowerCase());

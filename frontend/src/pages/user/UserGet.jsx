@@ -28,6 +28,8 @@ export default function UserGet() {
   const [TotalPage, setTotalPage] = useState(1);
   const [PerPage, setPerPage] = useState(1);
 
+  const [Loading, setLoading] = useState(true);
+
   const { Values, handleChange, resetForm, setValues } = useForm(User);
 
   useEffect(() => {
@@ -41,8 +43,10 @@ export default function UserGet() {
       const { pageWiseData, totalPage } = pagination(Page, PerPage, data.data);
       setUsers(pageWiseData);
       setTotalPage(totalPage);
+      setLoading(false);
     } catch (error) {
       toast.error(error);
+      setLoading(false);
     }
   };
 
@@ -103,6 +107,13 @@ export default function UserGet() {
 
   return (
     <>
+      {Loading ? (
+        <div className="flex flex-col grow item-center jusify-center">
+          <p className="font-bold text-xl grow flex items-center justify-center">
+            Loading...
+          </p>
+        </div>
+      ) : null}
       {console.log(User)}
       <div className="wrapper h-[calc(100vh-84px)] text-xs">
         <div className="inner-wrapper h-full flex gap-4">
