@@ -216,7 +216,7 @@ export default function ProductGet() {
                   >
                     <div className="card-top w-full rounded-2xl overflow-hidden">
                       <img
-                        src={`http://localhost:3000/uploads/products/${product.images[0].filename}`}
+                        src={`https://invy-coral.vercel.app/uploads/products/${product.images[0].filename}`}
                         alt=""
                         className="w-full h-full` aspect-square object-cover"
                       />
