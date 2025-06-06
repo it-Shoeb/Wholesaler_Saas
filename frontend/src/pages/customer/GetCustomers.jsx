@@ -66,13 +66,6 @@ export default function GetCustomers() {
 
   return (
     <>
-      {Loading ? (
-        <div className="flex flex-col grow item-center jusify-center">
-          <p className="font-bold text-xl grow flex items-center justify-center">
-            Loading...
-          </p>
-        </div>
-      ) : null}
       {console.log("CustomerId:", CustomerId)}
       <div className="wrapper flex flex-col min-h-[calc(100vh-84px)] rounded-2xl overflow-auto text-xs">
         <div className="inner-wrapper grow flex">
@@ -88,6 +81,14 @@ export default function GetCustomers() {
                   totalPages={setTotalPage}
                 />
               </div>
+
+              {Loading ? (
+                <div className="flex flex-col grow item-center jusify-center">
+                  <p className="font-bold text-xl grow flex items-center justify-center">
+                    Loading...
+                  </p>
+                </div>
+              ) : null}
 
               <div className="customer-lhs overflow-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                 {Customers?.map((customer) => (

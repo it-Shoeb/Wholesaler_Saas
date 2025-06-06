@@ -156,13 +156,6 @@ export default function ProductGet() {
 
   return (
     <>
-      {Loading ? (
-        <div className="flex flex-col grow item-center jusify-center">
-          <p className="font-bold text-xl grow flex items-center justify-center">
-            Loading...
-          </p>
-        </div>
-      ) : null}
       {/* {console.log(Products)} */}
       <div className="wrapper sm:min-h-[calc(100vh-85px)] min-h-[calc(100vh-70px)] flex flex-col">
         <div className="inner-wrapper grow">
@@ -210,6 +203,14 @@ export default function ProductGet() {
                   )}
                 </div>
               </div>
+
+              {Loading ? (
+                <div className="flex flex-col grow item-center jusify-center">
+                  <p className="font-bold text-xl grow flex items-center justify-center">
+                    Loading...
+                  </p>
+                </div>
+              ) : null}
 
               {/* scrolling from here */}
               <div className="item-grid grid max-[260px]:grid-cols-1 max-[769px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 sm:gap-4 gap-2 items-start sm:h-[calc(100vh-210px)] h-[calc(100vh-200px)] overflow-auto relative [scrollbar-width:none]">
