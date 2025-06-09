@@ -17,7 +17,13 @@ import cors from "cors";
 //   allowedHeaders: ["Content-Type", "Authorization"],
 // };
 
-app.use(cors({ origin: "https://invy-coral.vercel.app", credentials: true }));
+app.use(
+  cors({
+    origin: "https://invy-coral.vercel.app",
+    // origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser()); // Must come after CORS
 app.use(express.urlencoded({ extended: true }));

@@ -96,7 +96,8 @@ export default function GetCustomers() {
                     <div className="card-top flex w-full gap-2 items-center">
                       <div className="img-container  w-1/3">
                         <img
-                          src={`https://invy-coral.vercel.app/uploads/customers/${customer.customerImage[0]?.filename}`}
+                          // src={`https://invy-coral.vercel.app/uploads/customers/${customer.customerImage[0]?.filename}`}
+                          src={`http://localhost:3000/uploads/customers/${customer.customerImage[0]?.filename}`}
                           alt=""
                           className="aspect-square object-cover"
                         />

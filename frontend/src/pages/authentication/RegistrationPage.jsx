@@ -36,9 +36,9 @@ export default function RegistrationPage() {
   };
   return (
     <>
-      <div className="wrapper bg-green-100 w-full h-dvh p-6">
+      <div className="wrapper bg-secondary w-full h-dvh p-6">
         <div className="inner-wrapper bg-white w-full h-full rounded-2xl flex items-center justify-center">
-          <div className="form-wrapper bg-green-100 p-8 rounded-2xl md:w-1/3 w-[80%]">
+          <div className="form-wrapper bg-secondary p-8 rounded-2xl md:w-1/3 w-[80%]">
             <p className="text-5xl text-center mb-12 font-bold">
               Registration Page
             </p>
