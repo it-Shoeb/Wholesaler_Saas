@@ -19,8 +19,8 @@ import cors from "cors";
 
 app.use(
   cors({
-    origin: "https://invy-coral.vercel.app",
-    // origin: "http://localhost:5173",
+    // origin: "https://invy-coral.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );

@@ -3,7 +3,7 @@ import api from "./api";
 export const getProducts = async () => {
   try {
     const { data } = await api.get("/product");
-    return { data: data.data.reverse(), error: null };
+    return { data: data?.data?.reverse(), error: null };
   } catch (error) {
     return { data: null, error: error.message };
   }
