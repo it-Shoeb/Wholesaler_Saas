@@ -18,7 +18,7 @@ export default function LoginPage() {
     try {
       const { data } = await login(User);
       // const { data } = await api.post("/authentication/login", { ...User });
-      if (data.success) {
+      if (data?.success) {
         navigate("/product/get");
       }
       setIsAuthenticate(true);

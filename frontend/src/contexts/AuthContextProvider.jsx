@@ -36,7 +36,7 @@ function AuthContextProvider({ children }) {
       setIsAuthenticate(true);
       return response;
     } catch (error) {
-      console.error(error);
+      console.log('authcontext error:', error)
       setUser(null);
       setIsAuthenticate(false);
     } finally {
