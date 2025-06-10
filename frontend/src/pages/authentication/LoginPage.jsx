@@ -10,8 +10,8 @@ export default function LoginPage() {
   // const { login, setIsAuthenticate } = useContext(AuthContext);
   const navigate = useNavigate();
   const [User, setUser] = useState({
-    email: "",
-    password: "",
+    email: "admin@example.com",
+    password: "Admin@123",
   });
 
   const checkLogin = async () => {
