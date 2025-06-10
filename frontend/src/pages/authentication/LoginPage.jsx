@@ -16,16 +16,17 @@ export default function LoginPage() {
 
   const checkLogin = async () => {
     try {
-      const { data } = await login(User);
+      const data = await login(User);
+      console.log("login page data:", data);
       // const { data } = await api.post("/authentication/login", { ...User });
       if (data?.success) {
         navigate("/product/get");
       }
       setIsAuthenticate(true);
-      toast.success(data.message);
+      toast.success(data?.message);
       console.log("response:", data);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data?.message);
     }
   };
 
