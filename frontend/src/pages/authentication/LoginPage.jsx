@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { UseAuth } from "../../contexts/AuthContextProvider";
 // import { AuthContext } from "../../contexts/AuthContextProvider";
 
+import demoVideo from '/public/invy-demo.webm'
+
 export default function LoginPage() {
   const { login, setIsAuthenticate } = UseAuth();
   // const { login, setIsAuthenticate } = useContext(AuthContext);
@@ -96,6 +98,11 @@ export default function LoginPage() {
               {/* <Link to={"/registration"} className="self-center">
                 Create account
               </Link> */}
+                <div className="">
+                <p>Demo Video - Working on Locally</p>
+                <video src={demoVideo} controls></video>
+                </div>
+
             </form>
           </div>
         </div>
