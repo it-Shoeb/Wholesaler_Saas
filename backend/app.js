@@ -21,7 +21,7 @@ import cors from "cors";
 // origin: "http://localhost:5173/",
 app.use(
   cors({
-    origin: "https://invy-coral.vercel.app/",
+    origin: "https://invy-coral.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
